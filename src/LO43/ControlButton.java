@@ -3,9 +3,7 @@ package LO43;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by Kiéran on 26/05/2017.
- */
+
 public class ControlButton implements ActionListener{
 
     private Model model;
@@ -35,7 +33,7 @@ public class ControlButton implements ActionListener{
         }
 
         if(e.getSource()==vue.bAjouter){
-            // faire quelque chose
+            vue.ajouterElement();
         }
     }
 }

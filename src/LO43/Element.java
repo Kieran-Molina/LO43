@@ -2,9 +2,7 @@ package LO43;
 
 import java.awt.*;
 
-/**
- * Created by Kiéran on 27/05/2017.
- */
+
 public class Element extends Rectangle {
     private int dx, dy; //deplacement
     private Color color;

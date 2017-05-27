@@ -3,9 +3,7 @@ package LO43;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Kiéran on 26/05/2017.
- */
+
 public class Vue extends JFrame{
 
     private Model model;
@@ -50,8 +48,10 @@ public class Vue extends JFrame{
 
         Element e1 = new Element(50,50,40,40,5,15,Color.red);
         Element e2 = new Element(200,200,60,60,0,0,Color.blue);
+        Element e3 = new Element(500,400,50,50,-8,-7,Color.green);
         scene.addElement(e1);
         scene.addElement(e2);
+        scene.addElement(e3);
 
 
         Thread thread = new Thread(scene);
@@ -64,6 +64,28 @@ public class Vue extends JFrame{
         tout.add(scene);
 
         setContentPane(tout);
+    }
+
+    public void ajouterElement(){
+        //au clic bAjouter
+        AjoutElement ajoutElement = new AjoutElement();
+
+        try {
+            int result = JOptionPane.showConfirmDialog(null, ajoutElement,
+                    "Parametre du nouvel element", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+
+                scene.addElement(new Element(Integer.parseInt(ajoutElement.xField.getText()),
+                        Integer.parseInt(ajoutElement.yField.getText()),
+                        Integer.parseInt(ajoutElement.wField.getText()),
+                        Integer.parseInt(ajoutElement.hField.getText()),
+                        Integer.parseInt(ajoutElement.dxField.getText()),
+                        Integer.parseInt(ajoutElement.dyField.getText()),
+                        ajoutElement.colorChooser.getColor()));
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Parametre(s) invalide(s)", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void setControlMenu(ControlMenu controlMenu) {
