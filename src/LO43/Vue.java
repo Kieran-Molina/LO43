@@ -43,9 +43,21 @@ public class Vue extends JFrame{
         barreLat.add(bAjouter);
 
 
-        JPanel scene = new JPanel();
+        Scene scene = new Scene();
         scene.setSize(850,700);
 
+        // TESSTTTSSS
+
+        Element e1 = new Element(50,50,40,40,5,15,Color.red);
+        Element e2 = new Element(200,200,60,60,0,0,Color.blue);
+        scene.addElement(e1);
+        scene.addElement(e2);
+
+
+        Thread thread = new Thread(scene);
+        thread.start();
+
+        //
 
 
         tout.add(barreLat);
