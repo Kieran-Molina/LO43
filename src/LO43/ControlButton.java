@@ -21,5 +21,21 @@ public class ControlButton implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         //ici, le code associé aux boutons
+
+        if(e.getSource()==vue.bPause){
+            if(vue.scene.isPaused()){
+                // reprise
+                vue.bPause.setText("pause");
+                vue.scene.setPause(false);
+            }else {
+                // pause
+                vue.bPause.setText("reprise");
+                vue.scene.setPause(true);
+            }
+        }
+
+        if(e.getSource()==vue.bAjouter){
+            // faire quelque chose
+        }
     }
 }

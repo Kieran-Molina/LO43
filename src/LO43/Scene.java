@@ -82,4 +82,8 @@ public class Scene extends JPanel implements Runnable {
 
         }
     }
+
+    public boolean isPaused() {
+        return pause;
+    }
 }

@@ -10,7 +10,9 @@ public class Vue extends JFrame{
 
     private Model model;
 
-    public JButton bLancer, bStopper, bAjouter; // ....
+    public JButton bPause, bAjouter; // ....
+
+    public Scene scene;
 
     public Vue(Model m){
 
@@ -33,17 +35,15 @@ public class Vue extends JFrame{
         barreLat.setLayout(new GridLayout(15,1,20,20));
         barreLat.setMaximumSize(new Dimension(150, 700));
 
-        bLancer = new JButton("lancer");
-        bStopper = new JButton("pause");
+        bPause = new JButton("pause");
 
         bAjouter = new JButton("ajouter");
 
-        barreLat.add(bLancer);
-        barreLat.add(bStopper);
+        barreLat.add(bPause);
         barreLat.add(bAjouter);
 
 
-        Scene scene = new Scene();
+        scene = new Scene();
         scene.setSize(850,700);
 
         // TESSTTTSSS
@@ -74,8 +74,7 @@ public class Vue extends JFrame{
     public void setControlButon(ControlButton controlButton) {
         //ici, ajouter le controleur à tous les boutons cliquables
         // element.addActionListener(controlButton);
-        bLancer.addActionListener(controlButton);
-        bStopper.addActionListener(controlButton);
+        bPause.addActionListener(controlButton);
         bAjouter.addActionListener(controlButton);
     }
 }
