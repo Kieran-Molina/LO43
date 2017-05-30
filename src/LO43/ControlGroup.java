@@ -7,7 +7,7 @@ public class ControlGroup {
 
         Vue vue = new Vue(m);
 
-        new ControlMenu(m, vue);
+        new ControlClavier(m, vue);
         new ControlButton(m, vue);
 
     }
