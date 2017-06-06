@@ -4,6 +4,7 @@ import java.awt.*;
 
 
 public class Element extends Rectangle {
+    public static final int X_axis = 1, Y_axis = 2;
     protected double BOUNCE_RATE = 0.8;
     protected int dx, dy; //deplacement
     protected Color color;
@@ -29,6 +30,13 @@ public class Element extends Rectangle {
     }
 
     public boolean isMovable(){return movable;}
+
+    public Rectangle getNextRectangle(int axe){
+        if(axe == X_axis)return new Rectangle(x+dx, y, width, height);
+        if(axe == Y_axis)return new Rectangle(x, y+dy, width, height);
+        return new Rectangle(x+dx, y+dy, width, height);
+
+    }
 
 
     public int getDx() {
@@ -61,6 +69,7 @@ public class Element extends Rectangle {
     public boolean isControlGauche() {
         return controlGauche;
     }
+    public boolean isControlable() { return controlDroite || controlGauche;}
 
     public final double getBounceRate(){
         return BOUNCE_RATE;

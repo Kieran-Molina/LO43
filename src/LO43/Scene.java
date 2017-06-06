@@ -8,13 +8,14 @@ import java.util.ArrayList;
 public class Scene extends JPanel implements Runnable {
 
     private boolean pause;
+    private Model model;
 
     public ArrayList<Element> elements;
 
-    public Scene(){
+    public Scene(Model m){
         super();
         elements= new ArrayList<Element>();
-
+        model= m;
     }
 
     public void setPause(boolean p){
@@ -42,6 +43,8 @@ public class Scene extends JPanel implements Runnable {
         while (true){
             //traitement
             if(!pause) {
+
+                model.deplacementElement();
 
                 for (Element e : elements) { //pour chaque element
                     if (e.isMovable()) {
@@ -75,7 +78,7 @@ public class Scene extends JPanel implements Runnable {
 
                         //hitbox
                         for (Element other : elements){
-                            if (e!=other && new Rectangle(e.x+e.getDx(),e.y,e.width,e.height)
+                            if (e!=other && e.getNextRectangle(Element.X_axis)
                                             .intersects(other)){
                                 // impact horizontal - on echange les directions
                                 if (other.isMovable()) {
@@ -92,10 +95,11 @@ public class Scene extends JPanel implements Runnable {
                                     }
                                 }
                             }
-                            if (e!=other && new Rectangle(e.x,e.y+e.getDy(),e.width,e.height)
+                            if (e!=other && e.getNextRectangle(Element.Y_axis)
                                             .intersects(other)){
                                 // impact vertical - on echange les directions
                                 if (other.isMovable()) {
+
                                     int tmpDy = new Double(e.getDy() * e.getBounceRate()).intValue();
                                     e.setDy(new Double(other.getDy() * other.getBounceRate()).intValue());
                                     other.setDy(tmpDy);
@@ -105,7 +109,7 @@ public class Scene extends JPanel implements Runnable {
                                         e.setDx(e.getDx() + 1);
                                         other.setDx(other.getDx() - 1);
                                     }
-                                    if (e.getDx() > other.getDx()) {
+                                    if (e.getDx() > other.getDx() && (e.getDx() != 0 && other.getDx()!=-1)) {
                                         e.setDx(e.getDx() - 1);
                                         other.setDx(other.getDx() + 1);
                                     }

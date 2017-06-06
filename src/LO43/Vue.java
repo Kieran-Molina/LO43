@@ -16,7 +16,7 @@ public class Vue extends JFrame{
 
         model = m;
 
-        setSize(1000,700);
+        setSize(1400,900);
         creerAffichage();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
@@ -31,7 +31,7 @@ public class Vue extends JFrame{
 
         JPanel barreLat = new JPanel();
         barreLat.setLayout(new GridLayout(15,1,20,20));
-        barreLat.setMaximumSize(new Dimension(150, 700));
+        barreLat.setMaximumSize(new Dimension(150, 800));
 
         bPause = new JButton("pause");
 
@@ -41,16 +41,17 @@ public class Vue extends JFrame{
         barreLat.add(bAjouter);
 
 
-        scene = new Scene();
-        scene.setSize(850,700);
+        scene = new Scene(model);
+        model.elements = scene.elements;
+        scene.setSize(1250,900);
 
         // TESSTTTSSS
 
         Element e1 = new Element(50,50,40,40,5,15,Color.red);
         Element e2 = new Element(200,200,60,60,0,0,Color.blue);
-        Element ef = new ElementFixe(300,600,150,10, Color.black);
+        Element ef = new ElementFixe(300,800,150,10, Color.black);
         Element e3 = new ElementControlable(500,400,50,50,-8,-7,Color.green, true);
-        Element e4 = new ElementControlable(400,400,50,50,-8,-7,Color.orange, false);
+        Element e4 = new ElementControlable(400,400,50,50,-18,-7,Color.orange, false);
         scene.addElement(ef);
         scene.addElement(e1);
         scene.addElement(e2);
