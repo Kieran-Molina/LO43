@@ -78,14 +78,21 @@ public class Vue extends JFrame{
             int result = JOptionPane.showConfirmDialog(null, ajoutElement,
                     "Parametre du nouvel element", JOptionPane.OK_CANCEL_OPTION);
             if (result == JOptionPane.OK_OPTION) {
-
-                scene.addElement(new Element(Integer.parseInt(ajoutElement.xField.getText()),
-                        Integer.parseInt(ajoutElement.yField.getText()),
-                        Integer.parseInt(ajoutElement.wField.getText()),
-                        Integer.parseInt(ajoutElement.hField.getText()),
-                        Integer.parseInt(ajoutElement.dxField.getText()),
-                        Integer.parseInt(ajoutElement.dyField.getText()),
-                        ajoutElement.colorChooser.getColor()));
+                if (ajoutElement.movable.isSelected()) {
+                    scene.addElement(new Element(Integer.parseInt(ajoutElement.xField.getText()),
+                            Integer.parseInt(ajoutElement.yField.getText()),
+                            Integer.parseInt(ajoutElement.wField.getText()),
+                            Integer.parseInt(ajoutElement.hField.getText()),
+                            Integer.parseInt(ajoutElement.dxField.getText()),
+                            Integer.parseInt(ajoutElement.dyField.getText()),
+                            ajoutElement.colorChooser.getColor()));
+                }else{
+                    scene.addElement(new ElementFixe(Integer.parseInt(ajoutElement.xField.getText()),
+                            Integer.parseInt(ajoutElement.yField.getText()),
+                            Integer.parseInt(ajoutElement.wField.getText()),
+                            Integer.parseInt(ajoutElement.hField.getText()),
+                            ajoutElement.colorChooser.getColor()));
+                }
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null,"Parametre(s) invalide(s)", "Erreur", JOptionPane.ERROR_MESSAGE);

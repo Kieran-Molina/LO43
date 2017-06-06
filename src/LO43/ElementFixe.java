@@ -9,5 +9,6 @@ public class ElementFixe extends Element {
     public ElementFixe(int x, int y, int w, int h, Color c) {
         super(x, y, w, h, 0, 0, c);
         movable = false;
+        BOUNCE_RATE = 0;
     }
 }
