@@ -5,7 +5,8 @@ import java.awt.*;
 
 public class Element extends Rectangle {
     public static final int X_axis = 1, Y_axis = 2;
-    protected double BOUNCE_RATE = 0.8;
+    protected double BOUNCE_RATE = 0.5;
+    protected double FRICTION_RATE = 0.8;
     protected int dx, dy; //deplacement
     protected Color color;
     protected boolean movable;
@@ -73,5 +74,9 @@ public class Element extends Rectangle {
 
     public final double getBounceRate(){
         return BOUNCE_RATE;
+    }
+
+    public double getFrictionRate() {
+        return FRICTION_RATE;
     }
 }

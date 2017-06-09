@@ -48,15 +48,17 @@ public class Vue extends JFrame{
         // TESSTTTSSS
 
         Element e1 = new Element(50,50,40,40,5,15,Color.red);
-        Element e2 = new Element(200,200,60,60,0,0,Color.blue);
+        Element e2 = new Element(200,700,60,60,0,0,Color.blue);
         Element ef = new ElementFixe(300,800,150,10, Color.black);
         Element e3 = new ElementControlable(500,400,50,50,-8,-7,Color.green, true);
         Element e4 = new ElementControlable(400,400,50,50,-18,-7,Color.orange, false);
+        Element e5 = new ZoneActivable(200,700,60,60,0,0,Color.green, ZoneActivable.ARRIVEE,e3);
         scene.addElement(ef);
         scene.addElement(e1);
         scene.addElement(e2);
         scene.addElement(e3);
         scene.addElement(e4);
+        scene.addElement(e5);
 
 
         Thread thread = new Thread(scene);

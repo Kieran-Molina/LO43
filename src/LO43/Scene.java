@@ -33,7 +33,8 @@ public class Scene extends JPanel implements Runnable {
 
         for (Element e : elements){
             g.setColor(e.getColor());
-            g.fillRect(e.x, e.y, e.width, e.height);
+            if(e instanceof ZoneActivable) g.drawRect(e.x, e.y, e.width, e.height);
+            else g.fillRect(e.x, e.y, e.width, e.height);
         }
         g.setColor(Color.white);
     }
@@ -52,10 +53,10 @@ public class Scene extends JPanel implements Runnable {
                         //verification bord de map X
                         if (e.x + e.getDx() <= 0) {
                             e.setLocation(0, e.y);
-                            e.setDx(-e.getDx());//rebond
+                            e.setDx(- new Double(e.getDx()*e.getBounceRate()).intValue());//rebond
                         } else if (e.x + e.width + e.getDx() >= getWidth()) {
                             e.setLocation(getWidth() - e.width, e.y);
-                            e.setDx(-e.getDx());//rebond
+                            e.setDx(- new Double(e.getDx()*e.getBounceRate()).intValue());//rebond
                         }
 
                         //verification bord de map Y
@@ -67,8 +68,9 @@ public class Scene extends JPanel implements Runnable {
                             e.setLocation(e.x, getHeight() - e.height);
                             e.setDy(new Double(-(e.getDy())*e.getBounceRate()).intValue());
                             //frottements
-                            if (e.getDx()<0) e.setDx(e.getDx()+1);
-                            if (e.getDx()>0) e.setDx(e.getDx()-1);
+                            /*if (e.getDx()<0) e.setDx(e.getDx()+1);
+                            if (e.getDx()>0) e.setDx(e.getDx()-1);*/
+                            e.setDx(new Double(e.getDx()*e.getFrictionRate()).intValue());
 
                             e.setLand(e.getDy()==0);
                         } else {
@@ -78,12 +80,16 @@ public class Scene extends JPanel implements Runnable {
 
                         //hitbox
                         for (Element other : elements){
+                            if (other instanceof ZoneActivable){
+                                if (e!=other && e.intersects(other)) ((ZoneActivable) other).activer(e);
+                                continue;
+                            }
                             if (e!=other && e.getNextRectangle(Element.X_axis)
                                             .intersects(other)){
                                 // impact horizontal - on echange les directions
                                 if (other.isMovable()) {
-                                    int tmpDx = new Double(e.getDx() * e.getBounceRate()).intValue();
-                                    e.setDx(new Double(other.getDx() * other.getBounceRate()).intValue());
+                                    int tmpDx = new Double(e.getDx() * (e.isControlable()? 0.8 : e.getBounceRate())).intValue();
+                                    e.setDx(new Double(other.getDx() * (other.isControlable() ? 0.8 : other.getBounceRate())).intValue());
                                     other.setDx(tmpDx);
                                 }else{ // other = element fixe
                                     if (e.x + e.getDx() <= other.x + other.width && e.x + e.getDx() > other.x) {
@@ -124,12 +130,31 @@ public class Scene extends JPanel implements Runnable {
                                     } else if (e.y + e.height + e.getDy() >= other.y) {
 
                                         e.setLocation(e.x, other.y - e.height);
-                                        e.setDy(new Double(-(e.getDy())*e.getBounceRate()).intValue());
+                                        e.setDy(- new Double(e.getDy()*e.getBounceRate()).intValue());
                                         //frottements
-                                        if (e.getDx()<0) e.setDx(e.getDx()+1);
-                                        if (e.getDx()>0) e.setDx(e.getDx()-1);
+                                        /*if (e.getDx()<0) e.setDx(e.getDx()+1);
+                                        if (e.getDx()>0) e.setDx(e.getDx()-1);*/
+                                        e.setDx(new Double(e.getDx()*e.getFrictionRate()).intValue());
 
                                         e.setLand(e.getDy()==0);
+                                    }
+                                }
+                            }
+                            if (other.isMovable() && e!=other && e.intersects(other)){ // en cas de superposition
+                                double dx = e.getCenterX() - other.getCenterX();
+                                double dy = e.getCenterY() - other.getCenterY();
+
+                                if (Math.abs(dy) > Math.abs(dx)){ // deplacement vertical
+                                    if (dy <0) e.setLocation(e.x, e.y -1);
+                                    else other.setLocation(other.x, other.y -1);
+                                }else{
+                                    if (dx <0){
+                                        e.setLocation(e.x -1, e.y);
+                                        other.setLocation(other.x +1, other.y);
+                                    }else{
+
+                                        e.setLocation(e.x +1, e.y);
+                                        other.setLocation(other.x -1, other.y);
                                     }
                                 }
                             }
@@ -142,7 +167,7 @@ public class Scene extends JPanel implements Runnable {
             }
             repaint();
 
-            try{ // limite framerate nulle en attendant
+            try{ // limite framerate
                 Thread.sleep(16);
             } catch (InterruptedException e) {
                 e.printStackTrace();
