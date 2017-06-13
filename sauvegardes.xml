@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<sauvegardes>
+    <!-- <Element x="" y="" width="" height="" dx="" dy="" color="" /> -->
+    <default>
+        <ElementFixe color="-16777216" height="10" width="150" x="300" y="800"/>
+        <Element color="-65536" dx="5" dy="15" height="40" width="40" x="50" y="50"/>
+        <Element color="-16776961" dx="0" dy="0" height="60" width="60" x="200" y="700"/>
+        <ElementControlable color="-16711936" dx="-8" dy="-7" gauche="true" height="50" width="50" x="500" y="400"/>
+        <ElementControlable color="-14336" dx="-18" dy="-17" gauche="false" height="50" width="50" x="400" y="400"/>
+        <ZoneActivable color="-16711936" effet="0" height="60" width="60" x="200" y="700"/>
+    </default>
+    <coucou>
+        <Element color="154" dx="10" dy="-5" height="50" width="50" x="500" y="150"/>
+        <Element color="4846" dx="10" dy="-5" height="50" width="50" x="400" y="150"/>
+        <Element color="6546" dx="10" dy="-5" height="50" width="50" x="300" y="150"/>
+    </coucou>
+
+
+
+
+<test>
+    <ElementFixe color="-16777216" height="10" width="150" x="300" y="800"/>
+    <Element color="-65536" dx="0" dy="0" height="40" width="40" x="243" y="771"/>
+    <Element color="-16776961" dx="0" dy="0" height="60" width="60" x="209" y="811"/>
+    <ElementControlable color="-16711936" dx="0" dy="0" gauche="true" height="50" width="50" x="685" y="821"/>
+    <ElementControlable color="-14336" dx="0" dy="0" gauche="false" height="50" width="50" x="188" y="761"/>
+    <ZoneActivable color="-16711936" effet="0" height="60" width="60" x="200" y="700"/>
+    <Element color="-16711732" dx="0" dy="0" height="50" width="50" x="672" y="771"/>
+  </test>
+</sauvegardes>

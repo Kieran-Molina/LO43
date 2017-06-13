@@ -16,6 +16,9 @@ public class Scene extends JPanel implements Runnable {
         super();
         elements= new ArrayList<Element>();
         model= m;
+        model.elements = elements;
+
+        m.lireSauvegarde("default");
     }
 
     public void setPause(boolean p){

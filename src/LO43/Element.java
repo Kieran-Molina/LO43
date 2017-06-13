@@ -1,5 +1,6 @@
 package LO43;
 
+import org.w3c.dom.Document;
 import java.awt.*;
 
 
@@ -13,17 +14,39 @@ public class Element extends Rectangle {
     protected boolean land;
     protected boolean controlGauche, controlDroite;
 
+    protected String nom;
+
     public Element(int x, int y, int w, int h, int dx, int dy, Color c){
         super(x,y,w,h);
         this.dx = dx;
         this.dy = dy;
         color = c;
         movable = true;
+        nom = "Element";
 
         land = false;
         controlDroite = false;
         controlGauche = false;
+    }
 
+    public Element(org.w3c.dom.Element xml){
+        this(Integer.parseInt(xml.getAttribute("x")), Integer.parseInt(xml.getAttribute("y")),
+                Integer.parseInt(xml.getAttribute("width")), Integer.parseInt(xml.getAttribute("height")),
+                Integer.parseInt(xml.getAttribute("dx")), Integer.parseInt(xml.getAttribute("dy")),
+                new Color(Integer.parseInt(xml.getAttribute("color"))));
+    }
+
+    public org.w3c.dom.Element getXML(Document doc){
+        org.w3c.dom.Element elemXML = doc.createElement(nom);
+        elemXML.setAttribute("x", String.valueOf(x));
+        elemXML.setAttribute("y", String.valueOf(y));
+        elemXML.setAttribute("width", String.valueOf(width));
+        elemXML.setAttribute("height", String.valueOf(height));
+        elemXML.setAttribute("dx", String.valueOf(dx));
+        elemXML.setAttribute("dy", String.valueOf(dy));
+        elemXML.setAttribute("color", String.valueOf(color.getRGB()));
+
+        return elemXML;
     }
 
     public Color getColor() {
