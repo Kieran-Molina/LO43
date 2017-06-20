@@ -8,7 +8,7 @@ public class Vue extends JFrame{
 
     private Model model;
 
-    public JButton bPause, bAjouter, bLireSauvegarde, bSauvegarder, bClear; // ....
+    public JButton bPause, bAjouter, bLireSauvegarde, bSauvegarder, bClear, bSupprElement;
 
     public Scene scene;
 
@@ -35,12 +35,14 @@ public class Vue extends JFrame{
 
         bPause = new JButton("Pause");
         bAjouter = new JButton("Ajouter");
+        bSupprElement = new JButton("Supprimer");
         bClear = new JButton("Vider");
         bLireSauvegarde = new JButton("Lire...");
         bSauvegarder = new JButton("Sauvegarder...");
 
         barreLat.add(bPause);
         barreLat.add(bAjouter);
+        barreLat.add(bSupprElement);
         barreLat.add(bLireSauvegarde);
         barreLat.add(bSauvegarder);
         barreLat.add(bClear);
@@ -64,30 +66,89 @@ public class Vue extends JFrame{
 
     public void ajouterElement(){
         //au clic bAjouter
-        AjoutElement ajoutElement = new AjoutElement();
+        JPanel typePanel = new JPanel(new GridLayout(2,2,5,5));
+        ButtonGroup group = new ButtonGroup();
+        JRadioButton rElement = new JRadioButton("Element Deplacable", true);
+        JRadioButton rElementF = new JRadioButton("Element Fixe");
+        JRadioButton rElementC = new JRadioButton("Element Controlable");
+        JRadioButton rZone = new JRadioButton("Zone Activable");
 
-        try {
-            int result = JOptionPane.showConfirmDialog(null, ajoutElement,
-                    "Parametre du nouvel element", JOptionPane.OK_CANCEL_OPTION);
-            if (result == JOptionPane.OK_OPTION) {
-                if (ajoutElement.movable.isSelected()) {
-                    scene.addElement(new Element(Integer.parseInt(ajoutElement.xField.getText()),
-                            Integer.parseInt(ajoutElement.yField.getText()),
-                            Integer.parseInt(ajoutElement.wField.getText()),
-                            Integer.parseInt(ajoutElement.hField.getText()),
-                            Integer.parseInt(ajoutElement.dxField.getText()),
-                            Integer.parseInt(ajoutElement.dyField.getText()),
-                            ajoutElement.colorChooser.getColor()));
-                }else{
-                    scene.addElement(new ElementFixe(Integer.parseInt(ajoutElement.xField.getText()),
-                            Integer.parseInt(ajoutElement.yField.getText()),
-                            Integer.parseInt(ajoutElement.wField.getText()),
-                            Integer.parseInt(ajoutElement.hField.getText()),
-                            ajoutElement.colorChooser.getColor()));
+        group.add(rElement); group.add(rElementF); group.add(rElementC); group.add(rZone);
+        typePanel.add(rElement); typePanel.add(rElementF); typePanel.add(rElementC); typePanel.add(rZone);
+
+        int res1, res2=-1;
+        do {
+            res1 = JOptionPane.showConfirmDialog(this, typePanel, "Choisir un type", JOptionPane.OK_CANCEL_OPTION);
+            if (res1 == JOptionPane.OK_OPTION){
+                AjoutElement ae;
+                if (rElement.isSelected()) ae = new AjoutElement(AjoutElement.ELEMENT, model.elements);
+                else if (rElementC.isSelected()) ae = new AjoutElement(AjoutElement.ELEMENTCONTROLABLE, model.elements);
+                else if (rElementF.isSelected()) ae = new AjoutElement(AjoutElement.ELEMENTFIXE, model.elements);
+                else ae = new AjoutElement(AjoutElement.ZONEACTIVABLE, model.elements);
+
+                res2 = JOptionPane.showConfirmDialog(this, ae,
+                        "Parametre du nouvel element", JOptionPane.OK_CANCEL_OPTION);
+                if(res2 == JOptionPane.OK_OPTION) {
+
+                    if (rElement.isSelected()) {
+                        scene.addElement(new Element(ae.nom.getText(),
+                                Integer.parseInt(ae.xField.getText()),
+                                Integer.parseInt(ae.yField.getText()),
+                                Integer.parseInt(ae.wField.getText()),
+                                Integer.parseInt(ae.hField.getText()),
+                                Integer.parseInt(ae.dxField.getText()),
+                                Integer.parseInt(ae.dyField.getText()),
+                                ae.colorChooser.getColor()));
+                    }else
+                    if (rElementC.isSelected()){
+                        scene.addElement(new ElementControlable(ae.nom.getText(),
+                                Integer.parseInt(ae.xField.getText()),
+                                Integer.parseInt(ae.yField.getText()),
+                                Integer.parseInt(ae.wField.getText()),
+                                Integer.parseInt(ae.hField.getText()),
+                                Integer.parseInt(ae.dxField.getText()),
+                                Integer.parseInt(ae.dyField.getText()),
+                                ae.colorChooser.getColor(),
+                                ae.gauche.isSelected()));
+                    }else
+                    if (rElementF.isSelected()){
+                        scene.addElement(new ElementFixe(ae.nom.getText(),
+                                Integer.parseInt(ae.xField.getText()),
+                                Integer.parseInt(ae.yField.getText()),
+                                Integer.parseInt(ae.wField.getText()),
+                                Integer.parseInt(ae.hField.getText()),
+                                ae.colorChooser.getColor()
+                                ));
+                    }else
+                    if (rZone.isSelected()){
+                        scene.addElement(new ZoneActivable(ae.nom.getText(),
+                                Integer.parseInt(ae.xField.getText()),
+                                Integer.parseInt(ae.yField.getText()),
+                                Integer.parseInt(ae.wField.getText()),
+                                Integer.parseInt(ae.hField.getText()),
+                                ae.colorChooser.getColor(),
+                                ZoneActivable.ARRIVEE,
+                                (Element) ae.elementLie.getSelectedItem()
+                        ));
+                    }
                 }
             }
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Parametre(s) invalide(s)", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+        }while (res1 == JOptionPane.OK_OPTION && res2 == JOptionPane.CANCEL_OPTION);
+    }
+
+    public void supprimerElement(){
+        JPanel optPan = new JPanel(new GridLayout(1,2,5,5));
+        JComboBox<Element> elementCB = new JComboBox<>();
+        optPan.add(new JLabel("Element a supprimer"));
+        optPan.add(elementCB);
+        for (Element e: model.elements){
+            elementCB.addItem(e);
+        }
+
+        if(JOptionPane.showConfirmDialog(this,optPan,"Selectionnez l'element a supprimer",JOptionPane.OK_CANCEL_OPTION)
+                == JOptionPane.OK_OPTION){
+            model.elements.remove((Element)elementCB.getSelectedItem());
         }
     }
 
@@ -96,6 +157,7 @@ public class Vue extends JFrame{
         // element.addActionListener(controlButton);
         bPause.addActionListener(controlButton);
         bAjouter.addActionListener(controlButton);
+        bSupprElement.addActionListener(controlButton);
         bClear.addActionListener(controlButton);
         bLireSauvegarde.addActionListener(controlButton);
         bSauvegarder.addActionListener(controlButton);

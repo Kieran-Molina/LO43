@@ -14,15 +14,17 @@ public class Element extends Rectangle {
     protected boolean land;
     protected boolean controlGauche, controlDroite;
 
-    protected String nom;
+    protected String nomType;
+    public String nom;
 
-    public Element(int x, int y, int w, int h, int dx, int dy, Color c){
+    public Element(String n, int x, int y, int w, int h, int dx, int dy, Color c){
         super(x,y,w,h);
         this.dx = dx;
         this.dy = dy;
+        nom = n;
         color = c;
         movable = true;
-        nom = "Element";
+        nomType = "Element";
 
         land = false;
         controlDroite = false;
@@ -30,14 +32,16 @@ public class Element extends Rectangle {
     }
 
     public Element(org.w3c.dom.Element xml){
-        this(Integer.parseInt(xml.getAttribute("x")), Integer.parseInt(xml.getAttribute("y")),
+        this(   xml.getAttribute("nom"),
+                Integer.parseInt(xml.getAttribute("x")), Integer.parseInt(xml.getAttribute("y")),
                 Integer.parseInt(xml.getAttribute("width")), Integer.parseInt(xml.getAttribute("height")),
                 Integer.parseInt(xml.getAttribute("dx")), Integer.parseInt(xml.getAttribute("dy")),
                 new Color(Integer.parseInt(xml.getAttribute("color"))));
     }
 
     public org.w3c.dom.Element getXML(Document doc){
-        org.w3c.dom.Element elemXML = doc.createElement(nom);
+        org.w3c.dom.Element elemXML = doc.createElement(nomType);
+        elemXML.setAttribute("nom", nom);
         elemXML.setAttribute("x", String.valueOf(x));
         elemXML.setAttribute("y", String.valueOf(y));
         elemXML.setAttribute("width", String.valueOf(width));
@@ -101,5 +105,9 @@ public class Element extends Rectangle {
 
     public double getFrictionRate() {
         return FRICTION_RATE;
+    }
+
+    public String toString(){
+        return nom;
     }
 }

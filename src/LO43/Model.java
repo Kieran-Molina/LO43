@@ -118,7 +118,7 @@ public class Model {
                     elements.add(new ElementFixe((org.w3c.dom.Element) save.item(i)));
                     break;
                 case "ZoneActivable":
-                    elements.add(new ZoneActivable((org.w3c.dom.Element) save.item(i)));
+                    elements.add(new ZoneActivable((org.w3c.dom.Element) save.item(i),elements));
                     break;
                 case "#text" :
                     break;

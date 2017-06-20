@@ -37,6 +37,10 @@ public class ControlButton implements ActionListener{
             vue.ajouterElement();
         }
 
+        if(e.getSource()==vue.bSupprElement){
+            vue.supprimerElement();
+        }
+
         if(e.getSource()== vue.bClear){
             if (JOptionPane.showConfirmDialog(vue, "Etes vous sur?", "Reinitialisation", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
                 model.elements.clear();
