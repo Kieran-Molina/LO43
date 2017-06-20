@@ -22,6 +22,26 @@
     <ElementControlable color="-14336" dx="0" dy="0" gauche="false" height="50" nom="joueurDroite" width="50" x="673" y="821"/>
     <ZoneActivable color="-16711936" effet="0" height="60" nom="zoneActivable" nomTrigger="joueurGauche" width="60" x="500" y="700"/>
     <ElementFixe color="-10066330" height="10" nom="ElementFixe" width="300" x="300" y="700"/>
-    <ZoneActivable color="-13408513" effet="0" height="50" nom="ZoneActivable" nomTrigger="blocBleu" width="50" x="500" y="780"/>
+    <ZoneActivable color="-13408513" effet="1" height="50" nom="ZoneActivable" nomTrigger="blocBleu" width="50" x="500" y="780"/>
   </test1>
+
+<niveau1>
+    <ElementFixe color="-6710887" height="20" nom="ElementFixe" width="500" x="0" y="350"/>
+    <ElementFixe color="-6710887" height="170" nom="ElementFixe2" width="20" x="300" y="180"/>
+    <ElementFixe color="-6710887" height="220" nom="ElementFixe3" width="20" x="200" y="0"/>
+    <ElementControlable color="-16711936" dx="0" dy="-10" gauche="true" height="50" nom="ElementControlable" width="50" x="60" y="800"/>
+    <ElementFixe color="-6710887" height="20" nom="ElementFixe4" width="350" x="700" y="550"/>
+    <Element color="-6750208" dx="0" dy="-5" height="180" nom="Element" width="180" x="770" y="680"/>
+    <ZoneActivable color="-16711936" effet="1" height="50" nom="ZoneActivable" nomTrigger="ElementControlable" width="50" x="30" y="260"/>
+    <ElementFixe color="-6710887" height="20" nom="ElementFixe5" width="70" x="560" y="450"/>
+  </niveau1>
+<niveau2>
+    <ElementFixe color="-6710887" height="20" nom="ElementFixe" width="350" x="0" y="600"/>
+    <ElementFixe color="-6710887" height="650" nom="ElementFixe2" width="20" x="650" y="0"/>
+    <ElementFixe color="-6710887" height="20" nom="ElementFixe3" width="450" x="850" y="700"/>
+    <ElementControlable color="-26317" dx="0" dy="-10" gauche="true" height="120" nom="JoueurGauche" width="80" x="130" y="730"/>
+    <ZoneActivable color="-26317" effet="0" height="120" nom="ZoneActivableG" nomTrigger="JoueurGauche" width="80" x="30" y="400"/>
+    <ElementControlable color="-13369600" dx="0" dy="0" gauche="false" height="120" nom="JoueurDroite" width="80" x="1000" y="730"/>
+    <ZoneActivable color="-13369600" effet="1" height="120" nom="ZoneActivable" nomTrigger="JoueurDroite" width="80" x="1170" y="520"/>
+  </niveau2>
 </sauvegardes>

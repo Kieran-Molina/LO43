@@ -38,11 +38,11 @@ public class AjoutElement extends JPanel{
         yField.setInputVerifier(new NumberInputVerifier(0,2000));
         yField.setToolTipText("Position sur l'axe Y, positif");
         hField = new JFormattedTextField(decimalFormat);
-        hField.setInputVerifier(new NumberInputVerifier(1,500));
-        hField.setToolTipText("Hauteur, entre 1 et 500");
+        hField.setInputVerifier(new NumberInputVerifier(1,1000));
+        hField.setToolTipText("Hauteur, entre 1 et 1000");
         wField = new JFormattedTextField(decimalFormat);
-        wField.setInputVerifier(new NumberInputVerifier(1,500));
-        wField.setToolTipText("Largeur, entre 1 et 500");
+        wField.setInputVerifier(new NumberInputVerifier(1,1000));
+        wField.setToolTipText("Largeur, entre 1 et 1000");
 
         xField.setText("100");
         yField.setText("100");
@@ -85,7 +85,7 @@ public class AjoutElement extends JPanel{
         if (type == ELEMENTCONTROLABLE){
             //gauche ou droite
             nom.setText("ElementControlable");
-            gauche = new JRadioButton("Joueur Gauche (ZQSD)");
+            gauche = new JRadioButton("Joueur Gauche (ZQSD)", true);
             droite = new JRadioButton("Joueur Droite (Fleches)");
             ButtonGroup group = new ButtonGroup();
             group.add(gauche);
@@ -105,6 +105,15 @@ public class AjoutElement extends JPanel{
             for (Element e: elements){
                 if (e.isMovable()) elementLie.addItem(e);
             }
+
+            gauche = new JRadioButton("Rester dessus pour activer", true);
+            droite = new JRadioButton("Passer dessus pour activer");
+            ButtonGroup group = new ButtonGroup();
+            group.add(gauche);
+            group.add(droite);
+
+            optPan.add(gauche);
+            optPan.add(droite);
 
         }
 

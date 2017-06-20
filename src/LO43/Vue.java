@@ -127,7 +127,7 @@ public class Vue extends JFrame{
                                 Integer.parseInt(ae.wField.getText()),
                                 Integer.parseInt(ae.hField.getText()),
                                 ae.colorChooser.getColor(),
-                                ZoneActivable.ARRIVEE,
+                                ae.gauche.isSelected()? ZoneActivable.STAY_ON : ZoneActivable.ACTIVATE_ONCE,
                                 (Element) ae.elementLie.getSelectedItem()
                         ));
                     }

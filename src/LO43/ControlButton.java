@@ -3,6 +3,7 @@ package LO43;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 
 public class ControlButton implements ActionListener{
@@ -53,6 +54,7 @@ public class ControlButton implements ActionListener{
             vue.scene.setPause(true);
 
             String nomSauvegarde = JOptionPane.showInputDialog(vue, "Nom de la sauvegarde", "Sauvegarder", JOptionPane.QUESTION_MESSAGE);
+            if (nomSauvegarde == null || nomSauvegarde.equals("")) return;
             if (!model.saveAlreadyExists(nomSauvegarde) ||
                     JOptionPane.showConfirmDialog(vue,"Une sauvegarde de ce nom existe deja. Voulez vous la remplacer?","Sauvegarder"
                             ,JOptionPane.OK_CANCEL_OPTION)==JOptionPane.OK_OPTION) {

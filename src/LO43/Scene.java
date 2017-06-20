@@ -36,7 +36,13 @@ public class Scene extends JPanel implements Runnable {
 
         for (Element e : elements){
             g.setColor(e.getColor());
-            if(e instanceof ZoneActivable) g.drawRect(e.x, e.y, e.width, e.height);
+            if(e instanceof ZoneActivable){
+                g.drawRect(e.x, e.y, e.width, e.height);
+                if (((ZoneActivable) e).isActivated()) {
+                    g.drawRect(e.x - 1, e.y - 1, e.width + 2, e.height + 2);
+                    g.drawRect(e.x + 1, e.y + 1, e.width - 2, e.height - 2);
+                }
+            }
             else g.fillRect(e.x, e.y, e.width, e.height);
         }
         g.setColor(Color.white);
@@ -175,7 +181,14 @@ public class Scene extends JPanel implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            for (Element e : elements){
+                if (e instanceof ZoneActivable){
+                    if(((ZoneActivable) e).isActivated()) {
+                        ((ZoneActivable) e).desactiver();
+                    }
 
+                }
+            }
         }
     }
 

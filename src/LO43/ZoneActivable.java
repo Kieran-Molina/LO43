@@ -9,10 +9,10 @@ import java.util.ArrayList;
  * Auteur : Kiéran le 09/06/2017.
  */
 public class ZoneActivable extends Element {
-    public static final int ARRIVEE = 0;
+    public static final int ACTIVATE_ONCE = 0, STAY_ON = 1;
     private int effet;
     private Element trig;
-    private boolean alreadyActivated;
+    private boolean activated;
 
     public ZoneActivable(String n, int x, int y, int w, int h, Color c, int effet, Element trigger) {
         super(n, x, y, w, h, 0, 0, c);
@@ -20,7 +20,7 @@ public class ZoneActivable extends Element {
         trig = trigger;
         movable = false;
         nomType = "ZoneActivable";
-        alreadyActivated = false;
+        activated = false;
     }
 
     public ZoneActivable(org.w3c.dom.Element xml, ArrayList<Element> elements){
@@ -54,17 +54,16 @@ public class ZoneActivable extends Element {
     }
 
     public void activer(Element e){
-        if (alreadyActivated || (trig!= null && e!=trig)) return;
-        alreadyActivated = true;
-        switch (effet){
-            case ARRIVEE :
-                System.out.println("arrivee");
-                // Do Smthg
-                break;
+        if (trig!= null && e!=trig) return;
+        activated = true;
+    }
 
-            default:
-                System.out.println("sans effet");
-        }
+    public void desactiver(){
+        if (effet == STAY_ON) activated = false;
+    }
+
+    public boolean isActivated(){
+        return activated;
     }
 
 
